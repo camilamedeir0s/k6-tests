@@ -1,0 +1,1 @@
+k6 run ./script.js --summary-export summary.json --out csv=test.csv
