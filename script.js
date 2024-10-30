@@ -3,8 +3,8 @@ import { sleep } from 'k6';
 import { check } from 'k6';
 
 export const options = {
-  vus: 20,
-  duration: '60s',
+  vus: 10,
+  duration: '30s',
 };
 
 const endpoints = [
@@ -22,8 +22,7 @@ function checkResponse(res) {
 
 export default function () {
   for (const endpoint of endpoints) {
-    const res = http.get(`http://localhost:9080${endpoint}`);
+    const res = http.get(`http://localhost:12345${endpoint}`);
     checkResponse(res);
-    sleep(Math.random() * 3); // Pausa entre 0 e 3 segundos
   }
 }
