@@ -4,13 +4,11 @@ import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 
 export const options = {
   scenarios: {
-    ramp_up: {
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '20s', target: 550 },
-        { duration: '20s', target: 550 },
-      ],
+    fixed_iterations: {
+      executor: 'per-vu-iterations',
+      vus: 500, // Número de usuários virtuais simultâneos
+      iterations: 10, // Número de iterações por VU
+      maxDuration: '1h', // Tempo máximo permitido para o teste
     },
   },
 };
