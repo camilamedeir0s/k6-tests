@@ -2,10 +2,11 @@ import json
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import re
 
 # Configurações iniciais
 results_dir = "./results-14-12-24"  # Pasta onde estão os arquivos JSON
-output_graph = "test_results_graph_adjusted_no_overlap_vuspertime.png"  # Nome do arquivo do gráfico gerado
+output_graph = "test_results_graph_adjusted_no_overlap_TIME.png"  # Nome do arquivo do gráfico gerado
 
 # Gerar paleta com 15 cores distintas
 colors = plt.cm.get_cmap("tab20", 15)  # Usar "tab20" para obter até 20 cores distintas
@@ -14,7 +15,8 @@ colors = plt.cm.get_cmap("tab20", 15)  # Usar "tab20" para obter até 20 cores d
 data = {}
 for filename in os.listdir(results_dir):
     if filename.endswith(".json"):
-        config_name = filename.split(".", 1)[0]  # Extrair "colocated", "monolitico", etc.
+        #config_name = filename.split(".", 1)[0]  # Extrair "colocated", "monolitico", etc.
+        config_name = re.sub(r'_\d+\.json$', '', filename)
         with open(os.path.join(results_dir, filename), 'r') as file:
             json_data = json.load(file)
             vu = json_data["metrics"]["iterations"]["values"]["count"]
@@ -41,6 +43,7 @@ current_position = 0
 for i, (config, values) in enumerate(data.items()):
     vus = [v[0] for v in values]
     p95s = [v[1] for v in values]
+    print(colors(i))
     plt.bar(positions[current_position:current_position + len(vus)], p95s, bar_width, label=config, color=colors(i))
     current_position += len(vus)
 
