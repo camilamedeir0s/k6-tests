@@ -6,12 +6,34 @@ import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 const VUS = parseInt(__ENV.VUS) || 500; // Número de usuários virtuais simultâneos
 const OUTPUT = __ENV.OUTPUT || 'raw-data.json'; // Nome do arquivo de saída
 
+// Iterations de acordo com o valor de VUS
+let iterations = 0;
+switch (VUS) {
+  case 100:
+    iterations = 600;
+    break;
+  case 200:
+    iterations = 350;
+    break;
+  case 300:
+    iterations = 270;
+    break;
+  case 400:
+    iterations = 225;
+    break;
+  case 500:
+    iterations = 200;
+    break;
+  default:
+    throw new Error(`VUS ${VUS} não suportado.`);
+}
+
 export const options = {
   scenarios: {
     fixed_iterations: {
       executor: 'per-vu-iterations',
       vus: VUS, // Número de usuários virtuais simultâneos
-      iterations: 10, // Número de iterações por VU
+      iterations: iterations, // Número de iterações por VU
       maxDuration: '1h', // Tempo máximo permitido para o teste
     },
   },

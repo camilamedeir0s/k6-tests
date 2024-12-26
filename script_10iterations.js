@@ -6,8 +6,8 @@ export const options = {
   scenarios: {
     fixed_iterations: {
       executor: 'per-vu-iterations',
-      vus: 500, // Número de usuários virtuais simultâneos
-      iterations: 10, // Número de iterações por VU
+      vus: 100, // Número de usuários virtuais simultâneos
+      iterations: 600, // Número de iterações por VU
       maxDuration: '1h', // Tempo máximo permitido para o teste
     },
   },

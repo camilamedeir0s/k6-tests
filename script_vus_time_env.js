@@ -10,7 +10,7 @@ export const options = {
   scenarios: {
     fixed_iterations: {
       executor: 'constant-vus',
-      vus: VUS, // Número de usuários virtuais simultâneos
+      vus: 200, // Número de usuários virtuais simultâneos
       duration: '120s', // Tempo máximo permitido para o teste
     },
   },
