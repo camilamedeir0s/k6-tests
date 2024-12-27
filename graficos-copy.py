@@ -5,8 +5,8 @@ import numpy as np
 import re
 
 # Configurações iniciais
-results_dir = "./results-14-12-24"  # Pasta onde estão os arquivos JSON
-output_graph = "test_results_graph_adjusted_no_overlap_TIME.png"  # Nome do arquivo do gráfico gerado
+results_dir = "./results-26-12-24"  # Pasta onde estão os arquivos JSON
+output_graph = "test_results_graph_adjusted_no_overlap_26-12-24.png"  # Nome do arquivo do gráfico gerado
 
 # Gerar paleta com 15 cores distintas
 colors = plt.cm.get_cmap("tab20", 15)  # Usar "tab20" para obter até 20 cores distintas
@@ -19,7 +19,7 @@ for filename in os.listdir(results_dir):
         config_name = re.sub(r'_\d+\.json$', '', filename)
         with open(os.path.join(results_dir, filename), 'r') as file:
             json_data = json.load(file)
-            vu = json_data["metrics"]["iterations"]["values"]["count"]
+            vu = json_data["metrics"]["vus_max"]["values"]["value"]
             p95 = json_data["metrics"]["iteration_duration"]["values"]["p(95)"]
             if config_name not in data:
                 data[config_name] = []
@@ -48,12 +48,13 @@ for i, (config, values) in enumerate(data.items()):
     current_position += len(vus)
 
 # Configurações do gráfico
-plt.xlabel("Número de Usuários (VU)")
+plt.xlabel("Número de VUs")
 plt.ylabel("Percentil 95 da Duração (ms)")
-plt.title("Resultados de Testes de Carga")
+plt.title("Resultados de Testes de Carga ~2min de duração para cada teste")
 plt.xticks(
     positions[:current_position] + bar_width / 2,  # Centralizar labels no grupo
-    [f"{v[0]} ({config})" for config, values in data.items() for v in values],  # Labels detalhados por configuração
+    #[f"{v[0]} ({config})" for config, values in data.items() for v in values],  # Labels detalhados por configuração
+    [f"{v[0]}" for config, values in data.items() for v in values],  # Labels detalhados por configuração
     rotation=45,
     ha="right"
 )

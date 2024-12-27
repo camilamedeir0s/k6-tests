@@ -5,8 +5,8 @@ import numpy as np
 import re
 
 # Configurações iniciais
-results_dir = "./results-14-12-24"  # Pasta onde estão os arquivos JSON
-output_graph = "test_results_grouped_bar_chart_spaced_color22222.png"  # Nome do arquivo do gráfico gerado
+results_dir = "./results-26-12-24"  # Pasta onde estão os arquivos JSON
+output_graph = "test_results_grouped_bar_chart_spaced_color_26-12-24.png"  # Nome do arquivo do gráfico gerado
 
 # Carregar dados
 data = {}
@@ -17,7 +17,7 @@ for filename in os.listdir(results_dir):
         with open(os.path.join(results_dir, filename), 'r') as file:
             json_data = json.load(file)
             #vu = json_data["metrics"]["iterations"]["values"]["count"]
-            vu = json_data["metrics"]["vus"]["values"]["value"]
+            vu = json_data["metrics"]["vus_max"]["values"]["value"]
             p95 = json_data["metrics"]["iteration_duration"]["values"]["p(95)"]
             if vu not in data:
                 data[vu] = {}
