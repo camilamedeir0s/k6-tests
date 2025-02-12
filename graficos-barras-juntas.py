@@ -5,8 +5,8 @@ import numpy as np
 import re
 
 # Configurações iniciais
-results_dir = "./results-26-12-24"  # Pasta onde estão os arquivos JSON
-output_graph = "test_results_grouped_bar_chart_spaced_color_26-12-24.png"  # Nome do arquivo do gráfico gerado
+results_dir = "./results-25-01-21-VUs50-200"  # Pasta onde estão os arquivos JSON
+output_graph = "test_results_grouped_bar_chart_spaced_color_results-25-01-21-VUs50-200.png"  # Nome do arquivo do gráfico gerado
 
 # Carregar dados
 data = {}

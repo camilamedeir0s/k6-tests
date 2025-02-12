@@ -9,7 +9,7 @@ fi
 OUTPUT_BASE="$1"
 
 # Array com os valores de VUS
-VUS_VALUES=(100 200 300 400 500)
+VUS_VALUES=(50 100 150 200)
 
 # Itera sobre os valores de VUS e executa o k6
 for VUS in "${VUS_VALUES[@]}"; do

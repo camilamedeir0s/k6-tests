@@ -5,8 +5,8 @@ import numpy as np
 import re
 
 # Configurações iniciais
-results_dir = "./results-26-12-24"  # Pasta onde estão os arquivos JSON
-output_graph = "test_results_graph_adjusted_no_overlap_26-12-24.png"  # Nome do arquivo do gráfico gerado
+results_dir = "./results-25-01-21-VUs50-200"  # Pasta onde estão os arquivos JSON
+output_graph = "test_results_graph_adjusted_no_overlap_results-25-01-21-VUs50-200.png"  # Nome do arquivo do gráfico gerado
 
 # Gerar paleta com 15 cores distintas
 colors = plt.cm.get_cmap("tab20", 15)  # Usar "tab20" para obter até 20 cores distintas

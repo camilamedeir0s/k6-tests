@@ -2,12 +2,14 @@ import http from 'k6/http';
 import { check } from 'k6';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 
+const host = "localhost"
+
 export const options = {
   scenarios: {
     fixed_iterations: {
       executor: 'per-vu-iterations',
-      vus: 100, // Número de usuários virtuais simultâneos
-      iterations: 600, // Número de iterações por VU
+      vus: 1000, // Número de usuários virtuais simultâneos
+      iterations: 100, // Número de iterações por VU
       maxDuration: '1h', // Tempo máximo permitido para o teste
     },
   },
@@ -28,7 +30,7 @@ function checkResponse(res) {
 
 export default function () {
   for (const endpoint of endpoints) {
-    const res = http.get(`http://localhost${endpoint}`);
+    const res = http.get(`http://${host}${endpoint}`);
     checkResponse(res);
   }
 }
