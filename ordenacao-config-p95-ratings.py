@@ -3,8 +3,8 @@ import os
 import re
 
 # Configurações iniciais
-results_dir = "./results-25-02-17-sharediter"  # Pasta onde estão os arquivos JSON
-output_dir = "./results-25-02-17-sharediter/percentis_95_ordenados_results-25-02-17-sharediter"  # Pasta para salvar os arquivos TXT
+results_dir = "./results-25-02-13-constant-vus-50-200"  # Pasta onde estão os arquivos JSON
+output_dir = "./percentis_95_ordenados_results-25-02-13-constant-vus-50-200-ratings"  # Pasta para salvar os arquivos TXT
 
 # Criar diretório de saída, se não existir
 os.makedirs(output_dir, exist_ok=True)
@@ -19,7 +19,7 @@ for filename in os.listdir(results_dir):
         with open(os.path.join(results_dir, filename), 'r') as file:
             json_data = json.load(file)
             vu = json_data["metrics"]["vus_max"]["values"]["value"]  # Número máximo de VUs
-            p95 = json_data["metrics"]["iteration_duration"]["values"]["p(95)"]  # Percentil 95
+            p95 = json_data["metrics"]["response_time_api_v1_products_1_ratings"]["values"]["p(95)"]  # Percentil 95
 
             if vu not in data:
                 data[vu] = []

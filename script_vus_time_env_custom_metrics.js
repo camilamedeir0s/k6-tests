@@ -1,49 +1,18 @@
 import http from 'k6/http';
 import { check } from 'k6';
+import { Trend } from 'k6/metrics';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 
 // Obtendo valores de variáveis de ambiente ou usando padrões
 const VUS = parseInt(__ENV.VUS) || 500; // Número de usuários virtuais simultâneos
 const OUTPUT = __ENV.OUTPUT || 'raw-data.json'; // Nome do arquivo de saída
-const HOST = "localhost"
-
-// Iterations de acordo com o valor de VUS
-let iterations = 0;
-switch (VUS) {
-  case 50:
-    iterations = 840;
-    break;
-  case 100:
-    iterations = 550;
-    break;
-  case 150:
-    iterations = 450;
-    break;
-  case 200:
-    iterations = 400;
-    break;
-  default:
-    throw new Error(`VUS ${VUS} não suportado.`);
-}
-
-// export const options = {
-//   scenarios: {
-//     fixed_iterations: {
-//       executor: 'per-vu-iterations',
-//       vus: VUS, // Número de usuários virtuais simultâneos
-//       iterations: iterations, // Número de iterações por VU
-//       maxDuration: '1h', // Tempo máximo permitido para o teste
-//     },
-//   },
-// };
 
 export const options = {
   scenarios: {
     fixed_iterations: {
-      executor: "shared-iterations",
-      vus: VUS,
-      iterations: VUS * 500,
-      maxDuration: "5m",
+      executor: 'constant-vus',
+      vus: VUS, // Número de usuários virtuais simultâneos
+      duration: '150s', // Tempo máximo permitido para o teste
     },
   },
 };
@@ -57,14 +26,24 @@ const endpoints = [
   '/api/v1/products/1/ratings',
 ];
 
+const responseTimes = {};
+
+for (const endpoint of endpoints) {
+  const metricName = `response_time${endpoint.replace(/\//g, '_')}`;
+
+  responseTimes[endpoint] = new Trend(metricName);
+}
+
 function checkResponse(res) {
   check(res, { 'status was 200': (r) => r.status === 200 });
 }
 
 export default function () {
   for (const endpoint of endpoints) {
-    const res = http.get(`http://${HOST}${endpoint}`);
+    const res = http.get(`http://localhost${endpoint}`);
     checkResponse(res);
+
+    responseTimes[endpoint].add(res.timings.duration);
   }
 }
 
@@ -74,3 +53,6 @@ export function handleSummary(data) {
     stdout: textSummary(data, { indent: ' ', enableColors: true }),
   };
 }
+
+//k6 run --env VUS=300 script_10iterations_env.js
+//k6 run --env VUS=300 --env OUTPUT='resultados.json' script_10iterations_env.js

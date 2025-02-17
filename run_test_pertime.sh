@@ -9,13 +9,13 @@ fi
 OUTPUT_BASE="$1"
 
 # Array com os valores de VUS
-VUS_VALUES=(100 300 500)
+VUS_VALUES=(50 100 150 200)
 
 # Itera sobre os valores de VUS e executa o k6
 for VUS in "${VUS_VALUES[@]}"; do
   OUTPUT_FILE="${OUTPUT_BASE}_${VUS}.json"
   echo "Executando teste com VUS=${VUS} e OUTPUT=${OUTPUT_FILE}..."
-  k6 run --env VUS=$VUS --env OUTPUT="$OUTPUT_FILE" script_vus_time_env.js
+  k6 run --env VUS=$VUS --env OUTPUT="$OUTPUT_FILE" script_vus_time_env_custom_metrics.js
 done
 
 echo "Todos os testes foram concluídos."
