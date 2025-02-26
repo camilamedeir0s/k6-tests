@@ -1,0 +1,15 @@
+1) Subi cluster
+- Fiz todos os testes em sequência sem reiniciar nada (a, b, d, m) (Run 1)
+- Refiz todos os testes em sequência sem reiniciar nada (a, b, d, m) (Run 2)
+
+2) Restart node e k6 VM
+- Teste a (Run 3)
+
+3) Restart node e k6 VM
+- Teste b (Run 3)
+
+4) Restart node e k6 VM
+- Teste d (Run 3)
+
+5) Restart node e k6 VM
+- Teste m (Run 3)

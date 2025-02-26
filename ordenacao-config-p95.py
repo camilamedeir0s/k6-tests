@@ -3,8 +3,8 @@ import os
 import re
 
 # Configurações iniciais
-results_dir = "./2025/shared-iterations/4"  # Pasta onde estão os arquivos JSON
-output_dir = "./2025/shared-iterations/4/percentis_95_ordenados_results-4"  # Pasta para salvar os arquivos TXT
+results_dir = "./2025/results-25-02-26-nuvem-sharediterations-200vus/Run4"  # Pasta onde estão os arquivos JSON
+output_dir = "./2025/results-25-02-26-nuvem-sharediterations-200vus/Run4/percentis_95_ordenados_results-4"  # Pasta para salvar os arquivos TXT
 
 # Criar diretório de saída, se não existir
 os.makedirs(output_dir, exist_ok=True)
